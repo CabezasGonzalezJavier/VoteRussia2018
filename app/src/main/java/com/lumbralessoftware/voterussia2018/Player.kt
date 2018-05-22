@@ -3,21 +3,15 @@ package com.lumbralessoftware.voterussia2018
 /**
  * Created by javiergonzalezcabezas on 21/5/18.
  */
-class Player {
+class Player (id: Int, vote: Int, name: String, imageURL: String, position: String) {
 
     internal var id: Int = 0
     internal var vote: Int = 0
     internal var name: String = ""
     internal var imageURL: String = ""
     internal var position: String = ""
-
-    fun Playerr(id: Int, vote: Int, name: String, imageURL: String, position: String): ??? {
-        this.id = id
-        this.vote = vote
-        this.name = name
-        this.imageURL = imageURL
-        this.position = position
-    }
+    internal var team: String = ""
+    internal var number: String = ""
 
     fun getId(): Int {
         return id
