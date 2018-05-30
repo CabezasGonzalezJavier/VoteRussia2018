@@ -1,0 +1,65 @@
+package com.lumbralessoftware.voterussia2018.player;
+
+import android.os.Bundle;
+import android.support.constraint.solver.widgets.Snapshot;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.lumbralessoftware.voterussia2018.Player;
+import com.lumbralessoftware.voterussia2018.R;
+
+import java.util.List;
+
+import butterknife.ButterKnife;
+
+/**
+ * Created by javiergonzalezcabezas on 21/5/18.
+ */
+
+public class PlayerListFragment extends Fragment implements PlayerListContract.View{
+
+    private PlayerListContract.Presenter presenter;
+    View view;
+
+    public static PlayerListFragment newInstance() {
+        return new PlayerListFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.player_list_fragment, container, false);
+        ButterKnife.bind(this, view);
+        presenter.fetch();
+        return view;
+    }
+    @Override
+    public void setPresenter(PlayerListContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void showPlayer(List<Player> list) {
+
+    }
+
+    @Override
+    public void showError() {
+        Snackbar.make(view, getString(R.string.error), Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
+}

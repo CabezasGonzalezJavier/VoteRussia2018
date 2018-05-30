@@ -1,0 +1,48 @@
+package com.lumbralessoftware.voterussia2018.player;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.lumbralessoftware.voterussia2018.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by javiergonzalezcabezas on 21/5/18.
+ */
+
+public class PlayerListPresenter implements PlayerListContract.Presenter{
+    private PlayerListContract.View view;
+
+    DatabaseReference databaseReference;
+    DatabaseReference player;
+
+    public PlayerListPresenter(PlayerListContract.View view) {
+        this.view = view;
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        player = databaseReference.child("player");
+
+    }
+
+    @Override
+    public void fetch() {
+
+        player.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Player player = dataSnapshot.getValue(Player.class);
+                List<Player> list = new ArrayList<>();
+                list.add(player);
+                view.showPlayer(list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                view.showError();
+            }
+        });
+    }
+}
