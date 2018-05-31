@@ -1,7 +1,6 @@
 package com.lumbralessoftware.voterussia2018.player;
 
 import android.os.Bundle;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,6 +48,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     @Override
     public void showPlayer(List<Player> list) {
+
 
     }
 

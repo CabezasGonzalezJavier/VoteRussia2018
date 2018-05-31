@@ -11,7 +11,9 @@ class Player (id: Int, vote: Int, name: String, imageURL: String, position: Stri
     internal var imageURL: String = ""
     internal var position: String = ""
     internal var team: String = ""
-    internal var number: String = ""
+    internal var club: String = ""
+
+
 
     fun getId(): Int {
         return id

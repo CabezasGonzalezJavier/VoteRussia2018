@@ -14,7 +14,7 @@ import java.util.List;
  * Created by javiergonzalezcabezas on 21/5/18.
  */
 
-public class PlayerListPresenter implements PlayerListContract.Presenter{
+public class PlayerListPresenter implements PlayerListContract.Presenter {
     private PlayerListContract.View view;
 
     DatabaseReference databaseReference;
@@ -33,9 +33,11 @@ public class PlayerListPresenter implements PlayerListContract.Presenter{
         player.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Player player = dataSnapshot.getValue(Player.class);
                 List<Player> list = new ArrayList<>();
-                list.add(player);
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Player player = children.getValue(Player.class);
+                    list.add(player);
+                }
                 view.showPlayer(list);
             }
 
