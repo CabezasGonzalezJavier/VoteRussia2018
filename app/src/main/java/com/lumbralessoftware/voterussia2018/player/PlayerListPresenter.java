@@ -24,7 +24,7 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
         this.view = view;
         databaseReference = FirebaseDatabase.getInstance().getReference();
         player = databaseReference.child("player");
-
+        this.view.setPresenter(this);
     }
 
     @Override
