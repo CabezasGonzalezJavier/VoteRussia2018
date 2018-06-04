@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lumbralessoftware.voterussia2018.Player;
 import com.lumbralessoftware.voterussia2018.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -50,11 +51,6 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
         this.presenter = presenter;
     }
 
-    @Override
-    public void showPlayer(List<Player> list) {
-
-
-    }
 
     @Override
     public void showError() {
@@ -64,6 +60,11 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     @Override
     public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showPlayer(@NotNull List<Player> list) {
 
     }
 }
