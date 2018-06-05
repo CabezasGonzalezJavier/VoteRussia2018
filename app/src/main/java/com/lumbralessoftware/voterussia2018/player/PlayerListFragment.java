@@ -3,11 +3,13 @@ package com.lumbralessoftware.voterussia2018.player;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lumbralessoftware.voterussia2018.DividerVerticalItemDecoration;
 import com.lumbralessoftware.voterussia2018.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +27,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     private PlayerListContract.Presenter presenter;
     View view;
+
     @BindView(R.id.player_list_fragment_recyclerView)
     RecyclerView recyclerView;
 
@@ -65,6 +68,14 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     @Override
     public void showPlayer(@NotNull List<Player> list) {
+        recyclerView.setHasFixedSize(true);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        PlayerListAdapter adapter= new PlayerListAdapter(list, getActivity());
+        recyclerView.setAdapter(adapter);
+        RecyclerView.ItemDecoration itemDecoration =
+                new DividerVerticalItemDecoration(getActivity());
+        recyclerView.addItemDecoration(itemDecoration);
     }
 }
