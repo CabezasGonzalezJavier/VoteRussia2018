@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorBlack">@android:color/black</color>
+    <color name="colorGoalKeeper">#0057e7</color>
+    <color name="colorDefender">#008744</color>
+    <color name="colorMidfield">#ffa700</color>
+    <color name="colorForward">#d62d20</color>
 </resources>

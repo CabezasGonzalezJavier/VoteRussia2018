@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lumbralessoftware.voterussia2018.DividerVerticalItemDecoration;
+import com.lumbralessoftware.voterussia2018.Player;
 import com.lumbralessoftware.voterussia2018.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -74,8 +74,5 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
         PlayerListAdapter adapter= new PlayerListAdapter(list, getActivity());
         recyclerView.setAdapter(adapter);
-        RecyclerView.ItemDecoration itemDecoration =
-                new DividerVerticalItemDecoration(getActivity());
-        recyclerView.addItemDecoration(itemDecoration);
     }
 }

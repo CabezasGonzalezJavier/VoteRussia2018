@@ -1,6 +1,7 @@
 package com.lumbralessoftware.voterussia2018.player
 
 import com.lumbralessoftware.voterussia2018.BaseView
+import com.lumbralessoftware.voterussia2018.Player
 
 /**
  * Created by javiergonzalezcabezas on 31/5/18.

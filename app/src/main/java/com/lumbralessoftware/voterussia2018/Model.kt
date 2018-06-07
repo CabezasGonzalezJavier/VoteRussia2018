@@ -1,14 +1,15 @@
-package com.lumbralessoftware.voterussia2018.player
+package com.lumbralessoftware.voterussia2018
 
 /**
- * Created by javiergonzalezcabezas on 4/6/18.
+ * Created by javiergonzalezcabezas on 7/6/18.
  */
 class Player {
     private var club: String? = null
     private var id: Int? = null
     private var imageURL: String? = null
     private var name: String? = null
-    private var position: String? = null
+    private var number: String? = null
+    private var position: Int? = null
     private var team: String? = null
     private var vote: Int? = null
 
@@ -44,11 +45,19 @@ class Player {
         this.name = name
     }
 
-    fun getPosition(): String? {
+    fun getNumber(): String? {
+        return number
+    }
+
+    fun setNumber(number: String) {
+        this.number = number
+    }
+
+    fun getPosition(): Int? {
         return position
     }
 
-    fun setPosition(position: String) {
+    fun setPosition(position: Int) {
         this.position = position
     }
 
