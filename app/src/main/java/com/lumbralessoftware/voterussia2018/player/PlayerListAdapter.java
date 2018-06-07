@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +53,11 @@ public class PlayerListAdapter extends RecyclerView
         holder.name.setText(list.get(position).getName());
         holder.club.setText(list.get(position).getClub());
         holder.number.setText(list.get(position).getNumber());
+       // if (list.get(position).getStart()==1) {
+         //   holder.number.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_star_white));
+       // }
+        holder.rate.setText(String.valueOf(list.get(position).getVote()));
+        holder.rating.setRating(13.67f);
         setImagePosition(list.get(position).getPosition(), holder.positon);
         Glide.with(context)
                 .load(list.get(position).getImageURL())
@@ -88,6 +94,12 @@ public class PlayerListAdapter extends RecyclerView
 
         @BindView(R.id.player_list_item_position_imageView)
         ImageView positon;
+
+        @BindView(R.id.player_list_item_rate_textView)
+        TextView rate;
+
+        @BindView(R.id.player_list_item_rate_ratingBar)
+        RatingBar rating;
 
         DataObjectHolder(View itemView) {
             super(itemView);

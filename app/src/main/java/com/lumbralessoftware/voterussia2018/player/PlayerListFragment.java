@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by javiergonzalezcabezas on 21/5/18.
  */
 
-public class PlayerListFragment extends Fragment implements PlayerListContract.View{
+public class PlayerListFragment extends Fragment implements PlayerListContract.View {
 
     private PlayerListContract.Presenter presenter;
     View view;
@@ -49,6 +49,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
         presenter.fetch();
         return view;
     }
+
     @Override
     public void setPresenter(PlayerListContract.Presenter presenter) {
         this.presenter = presenter;
@@ -72,7 +73,8 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        PlayerListAdapter adapter= new PlayerListAdapter(list, getActivity());
+        PlayerListAdapter adapter = new PlayerListAdapter(list, getActivity());
         recyclerView.setAdapter(adapter);
     }
+
 }

@@ -10,6 +10,7 @@ class Player {
     private var name: String? = null
     private var number: String? = null
     private var position: Int? = null
+    private var star: String? = null
     private var team: String? = null
     private var vote: Int? = null
 
@@ -59,6 +60,14 @@ class Player {
 
     fun setPosition(position: Int) {
         this.position = position
+    }
+
+    fun getStart(): String? {
+        return star
+    }
+
+    fun setStart(star: String) {
+        this.star = star
     }
 
     fun getTeam(): String? {
