@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.lumbralessoftware.voterussia2018.Player;
 import com.lumbralessoftware.voterussia2018.R;
+import com.lumbralessoftware.voterussia2018.rating.RatingDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,13 +24,15 @@ import butterknife.ButterKnife;
  * Created by javiergonzalezcabezas on 21/5/18.
  */
 
-public class PlayerListFragment extends Fragment implements PlayerListContract.View {
+public class PlayerListFragment extends Fragment implements PlayerListContract.View, PlayerListAdapter.ListenerPlayer {
 
     private PlayerListContract.Presenter presenter;
     View view;
 
     @BindView(R.id.player_list_fragment_recyclerView)
     RecyclerView recyclerView;
+
+    private List<Player> list;
 
     public static PlayerListFragment newInstance() {
         return new PlayerListFragment();
@@ -69,12 +72,17 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     @Override
     public void showPlayer(@NotNull List<Player> list) {
+        this.list = list;
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        PlayerListAdapter adapter = new PlayerListAdapter(list, getActivity());
+        PlayerListAdapter adapter = new PlayerListAdapter(this, list, getActivity());
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void rating(int id) {
+        presenter.goToRating(id, list.get(id).getName());
+    }
 }

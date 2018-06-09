@@ -29,7 +29,7 @@ public class PlayerListActivity extends AppCompatActivity {
             addFragmentToActivity(getSupportFragmentManager(),
                     playerListFragment, R.id.player_list_activity_container);
         }
-        new PlayerListPresenter(playerListFragment);
+        new PlayerListPresenter(playerListFragment, this);
 
     }
 

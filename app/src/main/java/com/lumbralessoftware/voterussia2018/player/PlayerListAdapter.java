@@ -20,6 +20,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.lumbralessoftware.voterussia2018.Constants.DEFENDER;
+import static com.lumbralessoftware.voterussia2018.Constants.FORWARD;
+import static com.lumbralessoftware.voterussia2018.Constants.GOALKEEPER;
+import static com.lumbralessoftware.voterussia2018.Constants.MIDFIELD;
+
 /**
  * Created by javiergonzalezcabezas on 5/6/18.
  */
@@ -27,47 +32,18 @@ import butterknife.ButterKnife;
 public class PlayerListAdapter extends RecyclerView
         .Adapter<PlayerListAdapter.DataObjectHolder> {
 
-    List<Player> list;
-    Context context;
-    private static final int GOALKEEPER = 0;
-    private static final int DEFENDER = 1;
-    private static final int MIDFIELD = 2;
-    private static final int FORWARD = 3;
+    private List<Player> list;
+    private Context context;
+    private static PlayerListAdapter.ListenerPlayer listenerPlayer;
 
-    public PlayerListAdapter(List<Player> list, Context context) {
+    interface ListenerPlayer {
+        void rating(int id);
+    }
+
+    public PlayerListAdapter(PlayerListAdapter.ListenerPlayer listener, List<Player> list, Context context) {
+        this.listenerPlayer = listener;
         this.list = list;
         this.context = context;
-    }
-
-    @Override
-    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.player_list_item, parent, false);
-
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.name.setText(list.get(position).getName());
-        holder.club.setText(list.get(position).getClub());
-        holder.number.setText(list.get(position).getNumber());
-        holder.rate.setText(String.valueOf(list.get(position).getVote()));
-        holder.rating.setRating(13.67f);
-        setImagePosition(list.get(position).getPosition(), holder.positon);
-        Glide.with(context)
-                .load(list.get(position).getImageURL())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.profileImageView);
-        Glide.with(context)
-                .load(list.get(position).getTeam())
-                .into(holder.flag);
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
     }
 
     static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -103,15 +79,48 @@ public class PlayerListAdapter extends RecyclerView
 
             ButterKnife.bind(this, itemView);
 
-            itemView.setOnClickListener(this);
+            rate.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
 
+            listenerPlayer.rating(getLayoutPosition());
         }
 
     }
+
+    @Override
+    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.player_list_item, parent, false);
+
+        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
+        return dataObjectHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(DataObjectHolder holder, int position) {
+        holder.name.setText(list.get(position).getName());
+        holder.club.setText(list.get(position).getClub());
+        holder.number.setText(list.get(position).getNumber());
+        holder.rate.setText(String.valueOf(list.get(position).getVote()));
+        holder.rating.setRating(13.67f);
+        setImagePosition(list.get(position).getPosition(), holder.positon);
+        Glide.with(context)
+                .load(list.get(position).getImageURL())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.profileImageView);
+        Glide.with(context)
+                .load(list.get(position).getTeam())
+                .into(holder.flag);
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
 
     private void setImagePosition(int position, ImageView imageView) {
         switch (position) {

@@ -1,11 +1,17 @@
 package com.lumbralessoftware.voterussia2018.player;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lumbralessoftware.voterussia2018.Player;
+import com.lumbralessoftware.voterussia2018.rating.RatingDialogFragment;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +22,14 @@ import java.util.List;
 
 public class PlayerListPresenter implements PlayerListContract.Presenter {
     private PlayerListContract.View view;
+    private AppCompatActivity activity;
 
     DatabaseReference databaseReference;
     DatabaseReference player;
 
-    public PlayerListPresenter(PlayerListContract.View view) {
+    public PlayerListPresenter(PlayerListContract.View view, AppCompatActivity activity) {
         this.view = view;
+        this.activity = activity;
         databaseReference = FirebaseDatabase.getInstance().getReference();
         player = databaseReference.child("players");
         this.view.setPresenter(this);
@@ -46,5 +54,13 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
                 view.showError();
             }
         });
+    }
+
+    @Override
+    public void goToRating(int id, @NotNull String name) {
+
+        RatingDialogFragment ratingDialogFragment = RatingDialogFragment.newInstance(id, name);
+        ratingDialogFragment.show(activity.getSupportFragmentManager(), "dialog");
+
     }
 }

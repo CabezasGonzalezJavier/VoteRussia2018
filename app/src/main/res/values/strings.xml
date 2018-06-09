@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">VoteRussia2018</string>
     <string name="error">Error</string>
+    <string name="rating_dialog_submit">Submit</string>
+    <string name="rating_dialog_empty">Your rating will appear here</string>
+    <string name="rating_dialog_rating">Your rating is:&#160;</string>
 </resources>

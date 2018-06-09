@@ -18,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/title"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/player_list_item_club_textView"
         app:layout_constraintStart_toEndOf="@+id/player_list_item_profile_imageView"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,11 +53,11 @@
         android:id="@+id/player_list_item_number_textView"
         android:layout_width="@dimen/circle_size"
         android:layout_height="@dimen/circle_size"
-        android:gravity="center"
         android:background="@drawable/circle_white"
+        android:gravity="center"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/title"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -75,25 +75,28 @@
         android:id="@+id/player_list_item_rate_textView"
         android:layout_width="@dimen/rate_size"
         android:layout_height="@dimen/rate_size"
-        android:textSize="@dimen/vote"
-        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="@drawable/square_rate"
         android:gravity="center"
         android:text="3"
-        android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginEnd="@dimen/margin"
         android:textColor="@android:color/white"
-        android:background="@drawable/squard_rate"
+        android:textSize="@dimen/vote"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+        <!--style="@style/CustomRatingBar"-->
     <RatingBar
         android:id="@+id/player_list_item_rate_ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style= "@style/CustomRatingBar"
-        app:layout_constraintStart_toStartOf="@id/player_list_item_rate_textView"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/player_list_item_rate_textView"
-        app:layout_constraintTop_toBottomOf="@+id/player_list_item_rate_textView"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/player_list_item_rate_textView"
+        app:layout_constraintTop_toBottomOf="@+id/player_list_item_rate_textView" />
 
 </android.support.constraint.ConstraintLayout>
