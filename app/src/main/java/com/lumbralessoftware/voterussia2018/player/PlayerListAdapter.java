@@ -53,9 +53,6 @@ public class PlayerListAdapter extends RecyclerView
         holder.name.setText(list.get(position).getName());
         holder.club.setText(list.get(position).getClub());
         holder.number.setText(list.get(position).getNumber());
-       // if (list.get(position).getStart()==1) {
-         //   holder.number.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_star_white));
-       // }
         holder.rate.setText(String.valueOf(list.get(position).getVote()));
         holder.rating.setRating(13.67f);
         setImagePosition(list.get(position).getPosition(), holder.positon);

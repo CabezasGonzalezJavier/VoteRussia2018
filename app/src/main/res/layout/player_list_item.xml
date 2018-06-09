@@ -40,7 +40,7 @@
 
     <ImageView
         android:id="@+id/player_list_item_flag_imageView"
-        android:layout_width="45dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="@dimen/margin"
         app:layout_constraintBottom_toBottomOf="parent"
