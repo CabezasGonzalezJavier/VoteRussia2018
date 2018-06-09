@@ -5,6 +5,8 @@ package com.lumbralessoftware.voterussia2018
  */
 class Constants {
     companion object {
+        const val PLAYERS = "players"
+        const val VOTE = "vote"
         const val NAME = "name"
         const val ID_PLAYER = "id"
         const val GOALKEEPER = 0

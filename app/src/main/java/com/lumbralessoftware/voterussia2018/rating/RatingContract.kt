@@ -9,6 +9,8 @@ interface RatingContract {
 
     interface Presenter {
         fun sumit()
+
+        fun getVotes()
     }
 
     interface View : BaseView<Presenter> {
@@ -16,6 +18,8 @@ interface RatingContract {
         fun setTitle()
 
         fun setMessageRating()
+
+        fun showError()
 
     }
 }

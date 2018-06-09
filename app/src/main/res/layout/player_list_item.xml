@@ -71,29 +71,26 @@
         app:layout_constraintEnd_toEndOf="@id/player_list_item_profile_imageView"
         app:srcCompat="@drawable/circle_defender" />
 
-    <TextView
+    <Button
         android:id="@+id/player_list_item_rate_textView"
+        style="@style/CustomButton"
         android:layout_width="@dimen/rate_size"
         android:layout_height="@dimen/rate_size"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginTop="@dimen/small_margin"
-        android:background="@drawable/square_rate"
-        android:gravity="center"
-        android:text="3"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/vote"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <!--style="@style/CustomRatingBar"-->
+    <!--style="@style/CustomRatingBar"-->
     <RatingBar
         android:id="@+id/player_list_item_rate_ratingBar"
-        android:layout_width="90dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:isIndicator="true"
+        android:padding="@dimen/small_margin"
         android:numStars="5"
         android:stepSize=".5"
+        android:maxHeight="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/player_list_item_rate_textView"
         app:layout_constraintStart_toStartOf="@id/player_list_item_rate_textView"

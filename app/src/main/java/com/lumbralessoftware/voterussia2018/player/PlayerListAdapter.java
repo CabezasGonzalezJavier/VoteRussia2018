@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class PlayerListAdapter extends RecyclerView
         ImageView positon;
 
         @BindView(R.id.player_list_item_rate_textView)
-        TextView rate;
+        Button rate;
 
         @BindView(R.id.player_list_item_rate_ratingBar)
         RatingBar rating;

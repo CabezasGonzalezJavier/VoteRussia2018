@@ -7,9 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ic_start_gold</item>
         <item name="android:minHeight">18dp</item>
         <item name="android:maxHeight">18dp</item>
+    </style>
+
+    <style name="CustomButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/selector_rating</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/vote</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

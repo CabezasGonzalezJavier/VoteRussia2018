@@ -5,4 +5,6 @@ package com.lumbralessoftware.voterussia2018.rating;
  */
 
 public class RatingPresenter {
+
+
 }

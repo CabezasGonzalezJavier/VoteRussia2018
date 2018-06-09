@@ -27,6 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:background="@android:color/white"
         android:numStars="5"
         android:stepSize=".5"
         app:layout_constraintBottom_toTopOf="@+id/rating_dialog_submit_button"
@@ -37,6 +38,7 @@
 
     <Button
         android:id="@+id/rating_dialog_submit_button"
+        style="@style/CustomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

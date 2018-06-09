@@ -16,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lumbralessoftware.voterussia2018.Constants.PLAYERS;
+
 /**
  * Created by javiergonzalezcabezas on 21/5/18.
  */
@@ -31,7 +33,7 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
         this.view = view;
         this.activity = activity;
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        player = databaseReference.child("players");
+        player = databaseReference.child(PLAYERS);
         this.view.setPresenter(this);
     }
 
