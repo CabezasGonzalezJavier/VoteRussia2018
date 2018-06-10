@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +30,7 @@ import butterknife.OnClick;
 import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_ID;
 import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_VOTE;
 import static com.lumbralessoftware.voterussia2018.Constants.ID_PLAYER;
+import static com.lumbralessoftware.voterussia2018.Constants.IMAGE;
 import static com.lumbralessoftware.voterussia2018.Constants.NAME;
 import static com.lumbralessoftware.voterussia2018.Constants.PLAYERS;
 import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
@@ -35,19 +40,21 @@ import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
  */
 
 public class RatingDialogFragment extends DialogFragment implements RatingContract.View {
-
+    @BindView(R.id.rating_dialog_imageView)
+    ImageView imageView;
     @BindView(R.id.rating_dialog_ratingBar)
     RatingBar ratingBar;
     @BindView(R.id.rating_dialog_name_textView)
     TextView nameTextView;
+    @BindView(R.id.rating_dialog_rating_textView)
+    TextView ratingTextView;
 
     View view;
-    String namePlayer;
+    String namePlayer, imagePlayer;
     int idPlayer;
     DatabaseReference databaseReference;
     DatabaseReference vote;
     Vote voteData;
-    DismissDialog listener;
 
     public RatingDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -55,11 +62,12 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
         // Use `newInstance` instead as shown below
     }
 
-    public static RatingDialogFragment newInstance(int id, String name) {
+    public static RatingDialogFragment newInstance(int id, String name, String image) {
         RatingDialogFragment frag = new RatingDialogFragment();
         Bundle args = new Bundle();
         args.putString(NAME, name);
         args.putInt(ID_PLAYER, id);
+        args.putString(IMAGE, image);
         frag.setArguments(args);
         return frag;
     }
@@ -69,6 +77,7 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.rating_dialog, container);
         idPlayer = getArguments().getInt(ID_PLAYER);
+        imagePlayer = getArguments().getString(IMAGE);
         return view;
     }
 
@@ -84,7 +93,10 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
 
     @Override
     public void setTitle() {
-
+        Glide.with(getContext())
+                .load(imagePlayer)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView);
         namePlayer = getArguments().getString(NAME, "Enter Name");
         nameTextView.setText(namePlayer);
     }
@@ -92,12 +104,17 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
     @Override
     public void setMessageRating() {
         addValueVote(Math.round(ratingBar.getRating()));
-        //textView.setText(getString(R.string.rating_dialog_rating) + ratingBar.getRating());
     }
 
     @OnClick(R.id.rating_dialog_submit_button)
     public void sumitRating() {
-        setMessageRating();
+
+        if (ratingBar.getRating() > 0) {
+            setMessageRating();
+        } else {
+            ratingTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorForward));
+            ratingTextView.setText(getString(R.string.rating_dialog_player_please));
+        }
     }
 
     @Override
@@ -178,16 +195,4 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
         dismiss();
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof DismissDialog) {
-            //init the listener
-            listener = (DismissDialog) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement DismissDialog");
-        }
-    }
 }

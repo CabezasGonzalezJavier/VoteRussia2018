@@ -59,9 +59,9 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
     }
 
     @Override
-    public void goToRating(int id, @NotNull String name) {
+    public void goToRating(int id, @NotNull String name, @NotNull String image) {
 
-        RatingDialogFragment ratingDialogFragment = RatingDialogFragment.newInstance(id, name);
+        RatingDialogFragment ratingDialogFragment = RatingDialogFragment.newInstance(id, name, image);
         ratingDialogFragment.show(activity.getSupportFragmentManager(), "dialog");
 
     }

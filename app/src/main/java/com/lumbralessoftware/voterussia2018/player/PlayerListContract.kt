@@ -11,7 +11,7 @@ interface PlayerListContract {
     interface Presenter {
         fun fetch()
 
-        fun goToRating(id: Int, name: String)
+        fun goToRating(id: Int, name: String, image:String)
     }
 
     interface View : BaseView<Presenter> {
