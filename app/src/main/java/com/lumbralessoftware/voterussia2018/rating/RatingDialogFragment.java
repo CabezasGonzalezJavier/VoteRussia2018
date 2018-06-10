@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -26,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_ID;
 import static com.lumbralessoftware.voterussia2018.Constants.ID_PLAYER;
 import static com.lumbralessoftware.voterussia2018.Constants.NAME;
 import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
@@ -34,19 +34,20 @@ import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
  * Created by javiergonzalezcabezas on 9/6/18.
  */
 
-public class RatingDialogFragment extends DialogFragment implements RatingContract.View{
+public class RatingDialogFragment extends DialogFragment implements RatingContract.View {
 
     @BindView(R.id.rating_dialog_ratingBar)
     RatingBar ratingBar;
-    @BindView(R.id.rating_dialog_textView)
-    TextView textView;
     @BindView(R.id.rating_dialog_name_textView)
     TextView nameTextView;
+
     View view;
     String namePlayer;
     int idPlayer;
     DatabaseReference databaseReference;
     DatabaseReference vote;
+    Vote voteData;
+    int sumOne, sumTwo, sumThree, sumFour, sumFive;
 
     public RatingDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -80,16 +81,18 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
         setTitle();
         getVotes();
     }
+
     @Override
     public void setTitle() {
 
         namePlayer = getArguments().getString(NAME, "Enter Name");
         nameTextView.setText(namePlayer);
     }
+
     @Override
     public void setMessageRating() {
-
-        textView.setText(getString(R.string.rating_dialog_rating) + ratingBar.getRating());
+        addValueVote(Math.round(ratingBar.getRating()));
+        //textView.setText(getString(R.string.rating_dialog_rating) + ratingBar.getRating());
     }
 
     @OnClick(R.id.rating_dialog_submit_button)
@@ -102,23 +105,22 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
         Snackbar.make(view, getString(R.string.error), Snackbar.LENGTH_LONG)
                 .show();
     }
+
     private void getVotes() {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         vote = databaseReference.child(VOTE);
-        vote.addValueEventListener(new ValueEventListener() {
+        vote.orderByChild(FIREBASE_ID).equalTo(idPlayer).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Vote> list = new ArrayList<>();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
-                    Vote vote = children.getValue(Vote.class);
-                    list.add(vote);
+                    voteData = children.getValue(Vote.class);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                showError();
             }
         });
     }
@@ -126,5 +128,30 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
     @Override
     public void setPresenter(RatingContract.Presenter presenter) {
 
+    }
+
+    public void addValueVote(int vote) {
+        switch (vote) {
+            case 1:
+                voteData.setOne(voteData.getOne() + 1);
+                voteData.setSum(voteData.getSum() + 1);
+                break;
+            case 2:
+                voteData.setTwo(voteData.getTwo() + 1);
+                voteData.setSum(voteData.getSum() + 2);
+                break;
+            case 3:
+                voteData.setThree(voteData.getThree() + 1);
+                voteData.setSum(voteData.getSum() + 3);
+                break;
+            case 4:
+                voteData.setFour(voteData.getFour() + 1);
+                voteData.setSum(voteData.getSum() + 4);
+                break;
+            case 5:
+                voteData.setFive(voteData.getFive() + 1);
+                voteData.setSum(voteData.getSum() + 5);
+                break;
+        }
     }
 }

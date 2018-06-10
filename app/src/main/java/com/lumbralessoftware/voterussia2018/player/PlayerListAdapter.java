@@ -72,9 +72,6 @@ public class PlayerListAdapter extends RecyclerView
         @BindView(R.id.player_list_item_rate_textView)
         Button rate;
 
-        @BindView(R.id.player_list_item_rate_ratingBar)
-        RatingBar rating;
-
         DataObjectHolder(View itemView) {
             super(itemView);
 
@@ -106,7 +103,6 @@ public class PlayerListAdapter extends RecyclerView
         holder.club.setText(list.get(position).getClub());
         holder.number.setText(list.get(position).getNumber());
         holder.rate.setText(String.valueOf(list.get(position).getVote()));
-        holder.rating.setRating(13.67f);
         setImagePosition(list.get(position).getPosition(), holder.positon);
         Glide.with(context)
                 .load(list.get(position).getImageURL())

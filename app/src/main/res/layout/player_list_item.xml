@@ -78,22 +78,8 @@
         android:layout_height="@dimen/rate_size"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="parent "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!--style="@style/CustomRatingBar"-->
-    <RatingBar
-        android:id="@+id/player_list_item_rate_ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:isIndicator="true"
-        android:padding="@dimen/small_margin"
-        android:numStars="5"
-        android:stepSize=".5"
-        android:maxHeight="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/player_list_item_rate_textView"
-        app:layout_constraintStart_toStartOf="@id/player_list_item_rate_textView"
-        app:layout_constraintTop_toBottomOf="@+id/player_list_item_rate_textView" />
 
 </android.support.constraint.ConstraintLayout>
