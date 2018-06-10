@@ -10,6 +10,7 @@ interface PlayerListContract {
 
     interface Presenter {
         fun fetch()
+
         fun goToRating(id: Int, name: String)
     }
 

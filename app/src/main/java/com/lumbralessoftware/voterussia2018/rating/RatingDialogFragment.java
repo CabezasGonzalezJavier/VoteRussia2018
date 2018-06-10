@@ -1,5 +1,6 @@
 package com.lumbralessoftware.voterussia2018.rating;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,16 +19,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.lumbralessoftware.voterussia2018.R;
 import com.lumbralessoftware.voterussia2018.Vote;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_ID;
+import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_VOTE;
 import static com.lumbralessoftware.voterussia2018.Constants.ID_PLAYER;
 import static com.lumbralessoftware.voterussia2018.Constants.NAME;
+import static com.lumbralessoftware.voterussia2018.Constants.PLAYERS;
 import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
 
 /**
@@ -47,7 +47,7 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
     DatabaseReference databaseReference;
     DatabaseReference vote;
     Vote voteData;
-    int sumOne, sumTwo, sumThree, sumFour, sumFive;
+    DismissDialog listener;
 
     public RatingDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -152,6 +152,42 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
                 voteData.setFive(voteData.getFive() + 1);
                 voteData.setSum(voteData.getSum() + 5);
                 break;
+        }
+        voteData.setTotal(voteData.getTotal() + 1);
+        updateVote();
+    }
+
+    private void updateVote() {
+
+        DatabaseReference voteReference = vote.child(String.valueOf(idPlayer));
+        voteReference.setValue(voteData);
+        updatePlayer(calculateVote());
+    }
+
+    private String calculateVote() {
+        return String.valueOf(Math.round(voteData.getSum() / voteData.getTotal()));
+    }
+
+    private void updatePlayer(String vote) {
+
+        DatabaseReference player = databaseReference.child(PLAYERS);
+        DatabaseReference playerReference = player.child(String.valueOf(idPlayer));
+        DatabaseReference voteReference = playerReference.child(FIREBASE_VOTE);
+        voteReference.setValue(vote);
+
+        dismiss();
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof DismissDialog) {
+            //init the listener
+            listener = (DismissDialog) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement DismissDialog");
         }
     }
 }
