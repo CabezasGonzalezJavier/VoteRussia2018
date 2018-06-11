@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.lumbralessoftware.voterussia2018.R;
 import com.lumbralessoftware.voterussia2018.Vote;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -181,16 +183,18 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
         updatePlayer(calculateVote());
     }
 
-    private String calculateVote() {
-        return String.valueOf(Math.round(voteData.getSum() / voteData.getTotal()));
+    private float calculateVote() {
+        return (float)voteData.getSum() / (float)voteData.getTotal();
     }
 
-    private void updatePlayer(String vote) {
+    private void updatePlayer(float vote) {
+
+        DecimalFormat df = new DecimalFormat("#.#");
 
         DatabaseReference player = databaseReference.child(PLAYERS);
         DatabaseReference playerReference = player.child(String.valueOf(idPlayer));
         DatabaseReference voteReference = playerReference.child(FIREBASE_VOTE);
-        voteReference.setValue(vote);
+        voteReference.setValue(Double.valueOf(df.format(vote)));
 
         dismiss();
     }
