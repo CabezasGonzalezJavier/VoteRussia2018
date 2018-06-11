@@ -11,6 +11,14 @@ interface RatingContract {
         fun sumit()
 
         fun getVotes()
+
+        fun addValueVote(vote: Int)
+
+        fun updateVote()
+
+        fun calculateVote(): Float
+
+        fun updatePlayer(vote: Float)
     }
 
     interface View : BaseView<Presenter> {
@@ -20,6 +28,8 @@ interface RatingContract {
         fun setMessageRating()
 
         fun showError()
+
+        fun dismissDialog()
 
     }
 }

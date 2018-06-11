@@ -1,6 +1,5 @@
 package com.lumbralessoftware.voterussia2018.rating;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -15,27 +14,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.lumbralessoftware.voterussia2018.R;
-import com.lumbralessoftware.voterussia2018.Vote;
-
-import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_ID;
-import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_VOTE;
 import static com.lumbralessoftware.voterussia2018.Constants.ID_PLAYER;
 import static com.lumbralessoftware.voterussia2018.Constants.IMAGE;
 import static com.lumbralessoftware.voterussia2018.Constants.NAME;
-import static com.lumbralessoftware.voterussia2018.Constants.PLAYERS;
-import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
 
 /**
  * Created by javiergonzalezcabezas on 9/6/18.
@@ -54,9 +41,7 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
     View view;
     String namePlayer, imagePlayer;
     int idPlayer;
-    DatabaseReference databaseReference;
-    DatabaseReference vote;
-    Vote voteData;
+    RatingContract.Presenter presenter;
 
     public RatingDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -90,7 +75,7 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
         ButterKnife.bind(this, view);
 
         setTitle();
-        getVotes();
+        presenter.getVotes();
     }
 
     @Override
@@ -105,7 +90,7 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
 
     @Override
     public void setMessageRating() {
-        addValueVote(Math.round(ratingBar.getRating()));
+        presenter.addValueVote(Math.round(ratingBar.getRating()));
     }
 
     @OnClick(R.id.rating_dialog_submit_button)
@@ -125,78 +110,13 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
                 .show();
     }
 
-    private void getVotes() {
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        vote = databaseReference.child(VOTE);
-        vote.orderByChild(FIREBASE_ID).equalTo(idPlayer).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                    voteData = children.getValue(Vote.class);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                showError();
-            }
-        });
+    @Override
+    public void setPresenter(RatingContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
-    public void setPresenter(RatingContract.Presenter presenter) {
-
-    }
-
-    public void addValueVote(int vote) {
-        switch (vote) {
-            case 1:
-                voteData.setOne(voteData.getOne() + 1);
-                voteData.setSum(voteData.getSum() + 1);
-                break;
-            case 2:
-                voteData.setTwo(voteData.getTwo() + 1);
-                voteData.setSum(voteData.getSum() + 2);
-                break;
-            case 3:
-                voteData.setThree(voteData.getThree() + 1);
-                voteData.setSum(voteData.getSum() + 3);
-                break;
-            case 4:
-                voteData.setFour(voteData.getFour() + 1);
-                voteData.setSum(voteData.getSum() + 4);
-                break;
-            case 5:
-                voteData.setFive(voteData.getFive() + 1);
-                voteData.setSum(voteData.getSum() + 5);
-                break;
-        }
-        voteData.setTotal(voteData.getTotal() + 1);
-        updateVote();
-    }
-
-    private void updateVote() {
-
-        DatabaseReference voteReference = vote.child(String.valueOf(idPlayer));
-        voteReference.setValue(voteData);
-        updatePlayer(calculateVote());
-    }
-
-    private float calculateVote() {
-        return (float)voteData.getSum() / (float)voteData.getTotal();
-    }
-
-    private void updatePlayer(float vote) {
-
-        DecimalFormat df = new DecimalFormat("#.#");
-
-        DatabaseReference player = databaseReference.child(PLAYERS);
-        DatabaseReference playerReference = player.child(String.valueOf(idPlayer));
-        DatabaseReference voteReference = playerReference.child(FIREBASE_VOTE);
-        voteReference.setValue(Double.valueOf(df.format(vote)));
-
+    public void dismissDialog() {
         dismiss();
     }
-
 }

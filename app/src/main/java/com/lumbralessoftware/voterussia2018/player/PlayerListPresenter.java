@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lumbralessoftware.voterussia2018.Player;
 import com.lumbralessoftware.voterussia2018.rating.RatingDialogFragment;
+import com.lumbralessoftware.voterussia2018.rating.RatingPresenter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,6 +64,6 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
 
         RatingDialogFragment ratingDialogFragment = RatingDialogFragment.newInstance(id, name, image);
         ratingDialogFragment.show(activity.getSupportFragmentManager(), "dialog");
-
+        new RatingPresenter(ratingDialogFragment, id);
     }
 }
