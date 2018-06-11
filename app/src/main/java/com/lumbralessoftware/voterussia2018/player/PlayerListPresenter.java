@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lumbralessoftware.voterussia2018.Player;
+import com.lumbralessoftware.voterussia2018.Utils;
 import com.lumbralessoftware.voterussia2018.rating.RatingDialogFragment;
 import com.lumbralessoftware.voterussia2018.rating.RatingPresenter;
 
@@ -41,22 +42,26 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
     @Override
     public void fetch() {
 
-        player.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Player> list = new ArrayList<>();
-                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                    Player player = children.getValue(Player.class);
-                    list.add(player);
+        if (Utils.INSTANCE.isOnline(activity)) {
+            player.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<Player> list = new ArrayList<>();
+                    for (DataSnapshot children : dataSnapshot.getChildren()) {
+                        Player player = children.getValue(Player.class);
+                        list.add(player);
+                    }
+                    view.showPlayer(list);
                 }
-                view.showPlayer(list);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                view.showError();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    view.showError();
+                }
+            });
+        } else {
+            view.noInternet();
+        }
     }
 
     @Override
@@ -64,6 +69,6 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
 
         RatingDialogFragment ratingDialogFragment = RatingDialogFragment.newInstance(id, name, image);
         ratingDialogFragment.show(activity.getSupportFragmentManager(), "dialog");
-        new RatingPresenter(ratingDialogFragment, id);
+        new RatingPresenter(ratingDialogFragment, id, activity);
     }
 }

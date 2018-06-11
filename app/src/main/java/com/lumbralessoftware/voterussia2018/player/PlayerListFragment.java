@@ -61,7 +61,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     @Override
     public void showError() {
-        Snackbar.make(view, getString(R.string.error), Snackbar.LENGTH_LONG)
+        Snackbar.make(getActivity().findViewById(R.id.player_list_activity_container), getString(R.string.error), Snackbar.LENGTH_LONG)
                 .show();
     }
 
@@ -84,5 +84,17 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
     @Override
     public void rating(int id) {
         presenter.goToRating(id, list.get(id).getName(), list.get(id).getImageURL());
+    }
+
+    @Override
+    public void noInternet() {
+
+        Snackbar.make(getActivity().findViewById(R.id.player_list_activity_container), getString(R.string.no_internet), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.retry), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.fetch();
+                    }
+                }).show();
     }
 }

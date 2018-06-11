@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">VoteRussia2018</string>
     <string name="error">Error</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="retry">RETRY</string>
     <string name="rating_dialog_submit">Submit</string>
     <string name="rating_dialog_player">Rating the player</string>
     <string name="rating_dialog_player_please">Rating the player, please!</string>

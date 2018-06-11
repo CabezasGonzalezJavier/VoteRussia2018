@@ -31,5 +31,7 @@ interface RatingContract {
 
         fun dismissDialog()
 
+        fun noInternet()
+
     }
 }

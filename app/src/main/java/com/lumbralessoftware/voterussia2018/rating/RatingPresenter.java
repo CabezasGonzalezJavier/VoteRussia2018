@@ -1,5 +1,6 @@
 package com.lumbralessoftware.voterussia2018.rating;
 
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -7,6 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lumbralessoftware.voterussia2018.Utils;
 import com.lumbralessoftware.voterussia2018.Vote;
 
 import java.text.DecimalFormat;
@@ -23,13 +25,16 @@ import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
 public class RatingPresenter implements RatingContract.Presenter {
     RatingContract.View view;
     int idPlayer;
+    AppCompatActivity activity;
+
     DatabaseReference databaseReference;
     DatabaseReference vote;
     Vote voteData;
 
-    public RatingPresenter(RatingContract.View view, int idPlayer) {
+    public RatingPresenter(RatingContract.View view, int idPlayer, AppCompatActivity activity) {
         this.view = view;
         this.idPlayer = idPlayer;
+        this.activity = activity;
         view.setPresenter(this);
     }
 
@@ -41,22 +46,25 @@ public class RatingPresenter implements RatingContract.Presenter {
     @Override
     public void getVotes() {
 
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        vote = databaseReference.child(VOTE);
-        vote.orderByChild(FIREBASE_ID).equalTo(idPlayer).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                    voteData = children.getValue(Vote.class);
+        if (Utils.INSTANCE.isOnline(activity)) {
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+            vote = databaseReference.child(VOTE);
+            vote.orderByChild(FIREBASE_ID).equalTo(idPlayer).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot children : dataSnapshot.getChildren()) {
+                        voteData = children.getValue(Vote.class);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                view.showError();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    view.showError();
+                }
+            });
+        } else  {
+            view.noInternet();
+        }
     }
 
     @Override
@@ -97,7 +105,7 @@ public class RatingPresenter implements RatingContract.Presenter {
 
     @Override
     public float calculateVote() {
-        return (float)voteData.getSum() / (float)voteData.getTotal();
+        return (float) voteData.getSum() / (float) voteData.getTotal();
     }
 
     @Override

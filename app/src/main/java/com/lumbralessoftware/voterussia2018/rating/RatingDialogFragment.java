@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.lumbralessoftware.voterussia2018.R;
+import com.lumbralessoftware.voterussia2018.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,19 +96,22 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
 
     @OnClick(R.id.rating_dialog_submit_button)
     public void sumitRating() {
-
-        if (ratingBar.getRating() > 0) {
-            setMessageRating();
+        if (Utils.INSTANCE.isOnline(getActivity())) {
+            if (ratingBar.getRating() > 0) {
+                setMessageRating();
+            } else {
+                ratingTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorForward));
+                ratingTextView.setText(getString(R.string.rating_dialog_player_please));
+            }
         } else {
-            ratingTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorForward));
-            ratingTextView.setText(getString(R.string.rating_dialog_player_please));
+            noInternet();
         }
     }
 
     @Override
     public void showError() {
-        Snackbar.make(view, getString(R.string.error), Snackbar.LENGTH_LONG)
-                .show();
+        ratingTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorForward));
+        ratingTextView.setText(getString(R.string.error));
     }
 
     @Override
@@ -118,5 +122,12 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
     @Override
     public void dismissDialog() {
         dismiss();
+    }
+
+    @Override
+    public void noInternet() {
+
+        ratingTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorForward));
+        ratingTextView.setText(getString(R.string.no_internet));
     }
 }

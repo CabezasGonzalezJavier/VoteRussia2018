@@ -21,5 +21,7 @@ interface PlayerListContract {
 
         fun setLoadingIndicator(active: Boolean)
 
+        fun noInternet()
+
     }
 }
