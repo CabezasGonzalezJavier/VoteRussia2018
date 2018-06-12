@@ -9,6 +9,7 @@
         android:id="@+id/rating_dialog_imageView"
         android:layout_width="250dp"
         android:layout_height="110dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/rating_dialog_name_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

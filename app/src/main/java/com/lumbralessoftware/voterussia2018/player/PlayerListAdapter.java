@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +20,42 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.lumbralessoftware.voterussia2018.Constants.ARGENTINA;
+import static com.lumbralessoftware.voterussia2018.Constants.AUSTRALIA;
+import static com.lumbralessoftware.voterussia2018.Constants.BELGIUM;
+import static com.lumbralessoftware.voterussia2018.Constants.BRAZIL;
+import static com.lumbralessoftware.voterussia2018.Constants.COLOMBIA;
+import static com.lumbralessoftware.voterussia2018.Constants.COSTA_RICA;
+import static com.lumbralessoftware.voterussia2018.Constants.CROATIA;
 import static com.lumbralessoftware.voterussia2018.Constants.DEFENDER;
+import static com.lumbralessoftware.voterussia2018.Constants.DENAMARK;
+import static com.lumbralessoftware.voterussia2018.Constants.EGYPT;
+import static com.lumbralessoftware.voterussia2018.Constants.ENGLAND;
 import static com.lumbralessoftware.voterussia2018.Constants.FORWARD;
+import static com.lumbralessoftware.voterussia2018.Constants.FRANCE;
+import static com.lumbralessoftware.voterussia2018.Constants.GERMANY;
 import static com.lumbralessoftware.voterussia2018.Constants.GOALKEEPER;
+import static com.lumbralessoftware.voterussia2018.Constants.ICELAND;
+import static com.lumbralessoftware.voterussia2018.Constants.IRAN;
+import static com.lumbralessoftware.voterussia2018.Constants.JAPAN;
+import static com.lumbralessoftware.voterussia2018.Constants.MEXICO;
 import static com.lumbralessoftware.voterussia2018.Constants.MIDFIELD;
+import static com.lumbralessoftware.voterussia2018.Constants.MOROCCO;
+import static com.lumbralessoftware.voterussia2018.Constants.NIGERIA;
+import static com.lumbralessoftware.voterussia2018.Constants.PANAMA;
+import static com.lumbralessoftware.voterussia2018.Constants.PERU;
+import static com.lumbralessoftware.voterussia2018.Constants.POLAND;
+import static com.lumbralessoftware.voterussia2018.Constants.PORTUGAL;
+import static com.lumbralessoftware.voterussia2018.Constants.RUSSIA;
+import static com.lumbralessoftware.voterussia2018.Constants.SAUDI_ARABIA;
+import static com.lumbralessoftware.voterussia2018.Constants.SENEGAL;
+import static com.lumbralessoftware.voterussia2018.Constants.SERBIA;
+import static com.lumbralessoftware.voterussia2018.Constants.SOUTH_KOREA;
+import static com.lumbralessoftware.voterussia2018.Constants.SPAIN;
+import static com.lumbralessoftware.voterussia2018.Constants.SWEDEN;
+import static com.lumbralessoftware.voterussia2018.Constants.SWITZERLAND;
+import static com.lumbralessoftware.voterussia2018.Constants.TUNISIA;
+import static com.lumbralessoftware.voterussia2018.Constants.URUGUAY;
 
 /**
  * Created by javiergonzalezcabezas on 5/6/18.
@@ -108,9 +139,7 @@ public class PlayerListAdapter extends RecyclerView
                 .load(list.get(position).getImageURL())
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.profileImageView);
-        Glide.with(context)
-                .load(list.get(position).getTeam())
-                .into(holder.flag);
+        setFlag(list.get(position).getTeam(), holder.flag);
     }
 
     @Override
@@ -138,6 +167,119 @@ public class PlayerListAdapter extends RecyclerView
                 imageView.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_forward));
                 break;
         }
+    }
+
+    public void setFlag(int flag, ImageView imageView) {
+        switch (flag) {
+            //A
+            case RUSSIA:
+                imageView.setImageResource(R.drawable.flag0);
+                break;
+            case SAUDI_ARABIA:
+                imageView.setImageResource(R.drawable.flag1);
+                break;
+            case EGYPT:
+                imageView.setImageResource(R.drawable.flag2);
+                break;
+            case URUGUAY:
+                imageView.setImageResource(R.drawable.flag3);
+                break;
+            //B
+            case PORTUGAL:
+                imageView.setImageResource(R.drawable.flag4);
+                break;
+            case SPAIN:
+                imageView.setImageResource(R.drawable.flag5);
+                break;
+            case MOROCCO:
+                imageView.setImageResource(R.drawable.flag6);
+                break;
+            case IRAN:
+                imageView.setImageResource(R.drawable.flag7);
+                break;
+            //C
+            case FRANCE:
+                imageView.setImageResource(R.drawable.flag8);
+                break;
+            case AUSTRALIA:
+                imageView.setImageResource(R.drawable.flag9);
+                break;
+            case PERU:
+                imageView.setImageResource(R.drawable.flag10);
+                break;
+            case DENAMARK:
+                imageView.setImageResource(R.drawable.flag11);
+                break;
+            //D
+            case ARGENTINA:
+                imageView.setImageResource(R.drawable.flag12);
+                break;
+            case ICELAND:
+                imageView.setImageResource(R.drawable.flag13);
+                break;
+            case CROATIA:
+                imageView.setImageResource(R.drawable.flag14);
+                break;
+            case NIGERIA:
+                imageView.setImageResource(R.drawable.flag15);
+                break;
+            //E
+            case BRAZIL:
+                imageView.setImageResource(R.drawable.flag16);
+                break;
+            case SWITZERLAND:
+                imageView.setImageResource(R.drawable.flag17);
+                break;
+            case COSTA_RICA:
+                imageView.setImageResource(R.drawable.flag18);
+                break;
+            case SERBIA:
+                imageView.setImageResource(R.drawable.flag19);
+                break;
+            //F
+            case GERMANY:
+                imageView.setImageResource(R.drawable.flag20);
+                break;
+            case MEXICO:
+                imageView.setImageResource(R.drawable.flag21);
+                break;
+            case SWEDEN:
+                imageView.setImageResource(R.drawable.flag22);
+                break;
+            case SOUTH_KOREA:
+                imageView.setImageResource(R.drawable.flag23);
+                break;
+            //G
+            case BELGIUM:
+                imageView.setImageResource(R.drawable.flag24);
+                break;
+            case PANAMA:
+                imageView.setImageResource(R.drawable.flag25);
+                break;
+            case TUNISIA:
+                imageView.setImageResource(R.drawable.flag26);
+                break;
+            case ENGLAND:
+                imageView.setImageResource(R.drawable.flag27);
+                break;
+            //H
+            case POLAND:
+                imageView.setImageResource(R.drawable.flag28);
+                break;
+            case SENEGAL:
+                imageView.setImageResource(R.drawable.flag29);
+                break;
+            case COLOMBIA:
+                imageView.setImageResource(R.drawable.flag30);
+                break;
+            case JAPAN:
+                imageView.setImageResource(R.drawable.flag31);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.flag31);
+
+        }
+
     }
 
 }

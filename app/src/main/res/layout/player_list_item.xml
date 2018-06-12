@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/player_list_item_profile_imageView"
         android:layout_width="100dp"
@@ -15,32 +22,40 @@
 
     <TextView
         android:id="@+id/player_list_item_name_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
         android:textColor="@android:color/black"
         android:textSize="@dimen/title"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/player_list_item_club_textView"
+        app:layout_constraintEnd_toStartOf="@id/player_list_item_rate_textView"
         app:layout_constraintStart_toEndOf="@+id/player_list_item_profile_imageView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/player_list_item_club_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
         android:textSize="@dimen/normal_text"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/player_list_item_flag_imageView"
+        app:layout_constraintEnd_toStartOf="@id/player_list_item_rate_textView"
         app:layout_constraintStart_toEndOf="@+id/player_list_item_profile_imageView"
         app:layout_constraintTop_toBottomOf="@+id/player_list_item_name_textView"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
         android:id="@+id/player_list_item_flag_imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="33dp"
         android:layout_height="30dp"
         android:layout_marginStart="@dimen/margin"
         app:layout_constraintBottom_toBottomOf="parent"

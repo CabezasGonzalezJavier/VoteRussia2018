@@ -10,7 +10,7 @@ class Player {
     private var name: String? = null
     private var number: String? = null
     private var position: Int? = null
-    private var team: String? = null
+    private var team: Int? = null
     private var vote: Float? = null
 
     fun getClub(): String? {
@@ -61,11 +61,11 @@ class Player {
         this.position = position
     }
 
-    fun getTeam(): String? {
+    fun getTeam(): Int? {
         return team
     }
 
-    fun setTeam(team: String) {
+    fun setTeam(team: Int) {
         this.team = team
     }
 

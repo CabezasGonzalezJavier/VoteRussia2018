@@ -1,6 +1,5 @@
 package com.lumbralessoftware.voterussia2018.player;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
