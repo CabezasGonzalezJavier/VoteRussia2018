@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -218,8 +219,7 @@ public class PlayerListActivity extends AppCompatActivity {
                     case 19:
                         presenter.fetchPlayerWithTeam(NIGERIA);
                         break;
-
-
+                    //E
                     case 20:
                         presenter.fetchPlayerWithTeam(BRAZIL);
                         break;
@@ -310,5 +310,16 @@ public class PlayerListActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }
