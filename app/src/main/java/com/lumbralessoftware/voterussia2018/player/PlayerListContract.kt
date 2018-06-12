@@ -11,6 +11,10 @@ interface PlayerListContract {
     interface Presenter {
         fun fetch()
 
+        fun fetchPlayerWithPosition(position :Int)
+
+        fun fetchPlayerWithTeam(team :Int)
+
         fun goToRating(id: Int, name: String, image:String)
     }
 

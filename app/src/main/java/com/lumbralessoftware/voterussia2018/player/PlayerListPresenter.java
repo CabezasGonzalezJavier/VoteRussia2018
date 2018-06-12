@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_POSITION;
+import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_TEAM;
 import static com.lumbralessoftware.voterussia2018.Constants.PLAYERS;
 
 /**
@@ -63,11 +65,61 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
         }
     }
 
+
+
     @Override
     public void goToRating(int id, @NotNull String name, @NotNull String image) {
 
         RatingDialogFragment ratingDialogFragment = RatingDialogFragment.newInstance(id, name, image);
         ratingDialogFragment.show(activity.getSupportFragmentManager(), "dialog");
         new RatingPresenter(ratingDialogFragment, id, activity);
+    }
+
+    @Override
+    public void fetchPlayerWithPosition(int position) {
+        if (Utils.INSTANCE.isOnline(activity)) {
+            player.orderByChild(FIREBASE_POSITION).equalTo(position).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<Player> list = new ArrayList<>();
+                    for (DataSnapshot children : dataSnapshot.getChildren()) {
+                        Player player = children.getValue(Player.class);
+                        list.add(player);
+                    }
+                    view.showPlayer(list);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    view.showError();
+                }
+            });
+        } else {
+            view.noInternet();
+        }
+    }
+
+    @Override
+    public void fetchPlayerWithTeam(int team) {
+        if (Utils.INSTANCE.isOnline(activity)) {
+            player.orderByChild(FIREBASE_TEAM).equalTo(team).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<Player> list = new ArrayList<>();
+                    for (DataSnapshot children : dataSnapshot.getChildren()) {
+                        Player player = children.getValue(Player.class);
+                        list.add(player);
+                    }
+                    view.showPlayer(list);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    view.showError();
+                }
+            });
+        } else {
+            view.noInternet();
+        }
     }
 }
