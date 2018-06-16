@@ -91,3 +91,35 @@ class Vote {
     var total: Int? = null
 
 }
+
+
+class ElementList(name: String, section: Boolean, nextSection: Boolean) {
+
+    private var name:String? = null
+    private var section: Boolean? = null
+    private var nextSection: Boolean? = null
+
+    fun isSection(): Boolean? {
+        return section
+    }
+
+    fun setSection(mSection: Boolean) {
+        this.section = mSection
+    }
+
+    fun getName(): String? {
+        return name
+    }
+
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    fun ismNextSection(): Boolean? {
+        return nextSection
+    }
+
+    fun setmNextSection(mNextSection: Boolean) {
+        this.nextSection = mNextSection
+    }
+}

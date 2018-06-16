@@ -8,50 +8,61 @@
     <string name="rating_dialog_player_please">Rating the player, please!</string>
     <string name="rating_dialog_empty">Your rating will appear here</string>
     <string name="rating_dialog_rating">Your rating is:&#160;</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="position">Position</string>
     <string name="position_goalkeeper">Goalkeepers</string>
     <string name="position_defender">Defenders</string>
     <string name="position_midfield">Midfielders</string>
     <string name="position_forward">Forwards</string>
-    <string name="drawer_open">Open</string>
-    <string name="drawer_close">Close</string>
 
-    <string name="country_russia">RUSSIA</string>
-    <string name="country_saudi">SAUDI_ARABIA</string>
-    <string name="country_egypt">EGYPT</string>
-    <string name="country_uruguay">URUGUAY</string>
+    <string name="group_a">Group A</string>
+    <string name="country_russia">Russia</string>
+    <string name="country_saudi">Saudi Arabia</string>
+    <string name="country_egypt">Egypt</string>
+    <string name="country_uruguay">Uruguay</string>
 
-    <string name="country_portugal">PORTUGAL</string>
-    <string name="country_spain">SPAIN</string>
-    <string name="country_morocco">MOROCCO</string>
-    <string name="country_iran">IRAN</string>
+    <string name="group_b">Group B</string>
+    <string name="country_portugal">Portugal</string>
+    <string name="country_spain">Spain</string>
+    <string name="country_morocco">Morocco</string>
+    <string name="country_iran">Iran</string>
 
-    <string name="country_france">FRANCE</string>
-    <string name="country_australia">AUSTRALIA</string>
-    <string name="country_peru">PERU</string>
-    <string name="country_denmark">DENAMARK</string>
+    <string name="group_c">Group C</string>
+    <string name="country_france">France</string>
+    <string name="country_australia">Australia</string>
+    <string name="country_peru">Peru</string>
+    <string name="country_denmark">Denamark</string>
 
-    <string name="country_argentina">ARGENTINA</string>
-    <string name="country_iceland">ICELAND</string>
-    <string name="country_croatia">CROATIA</string>
-    <string name="country_nigeria">NIGERIA</string>
+    <string name="group_d">Group d</string>
+    <string name="country_argentina">Argentina</string>
+    <string name="country_iceland">Iceland</string>
+    <string name="country_croatia">Croatia</string>
+    <string name="country_nigeria">Nigeria</string>
 
-    <string name="country_brazil">BRAZIL</string>
-    <string name="country_switzerland">SWITZERLAND</string>
-    <string name="country_costa">COSTA_RICA</string>
-    <string name="country_serbia">SERBIA</string>
+    <string name="group_e">Group E</string>
+    <string name="country_brazil">Brazil</string>
+    <string name="country_switzerland">Switzerland</string>
+    <string name="country_costa">Costa Rica</string>
+    <string name="country_serbia">Serbia</string>
 
-    <string name="country_germany">GERMANY</string>
-    <string name="country_mexico">MEXICO</string>
-    <string name="country_sweden">SWEDEN</string>
-    <string name="country_korea">SOUTH_KOREA</string>
+    <string name="group_f">Group F</string>
+    <string name="country_germany">Germany</string>
+    <string name="country_mexico">Mexico</string>
+    <string name="country_sweden">Sweden</string>
+    <string name="country_korea">South Korea</string>
 
-    <string name="country_belgium">BELGIUM</string>
-    <string name="country_panama">PANAMA</string>
-    <string name="country_tunisia">TUNISIA</string>
-    <string name="country_england">ENGLAND</string>
+    <string name="group_g">Group G</string>
+    <string name="country_belgium">Belgium</string>
+    <string name="country_panama">Panama</string>
+    <string name="country_tunisia">Tunisia</string>
+    <string name="country_england">England</string>
 
-    <string name="country_poland">POLAND</string>
-    <string name="country_senegal">SENEGAL</string>
-    <string name="country_colombia">COLOMBIA</string>
-    <string name="country_japan">JAPAN</string>
+    <string name="group_h">Group H</string>
+    <string name="country_poland">Poland</string>
+    <string name="country_senegal">Senegal</string>
+    <string name="country_colombia">Colombia</string>
+    <string name="country_japan">Japan</string>
 </resources>
