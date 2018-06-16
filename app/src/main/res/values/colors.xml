@@ -11,4 +11,5 @@
     <color name="colorForward">#d62d20</color>
     <color name="colorGold">#ffd700</color>
     <color name="colorLine">@android:color/darker_gray</color>
+    <color name="colorWhiteBackground">#f5f5f5</color>
 </resources>

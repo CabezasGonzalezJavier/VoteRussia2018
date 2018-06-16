@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.lumbralessoftware.voterussia2018.ElementList;
 import com.lumbralessoftware.voterussia2018.R;
+import com.lumbralessoftware.voterussia2018.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,18 +94,11 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
                 findFragmentById(R.id.player_list_activity_container);
         if (playerListFragment == null) {
             playerListFragment = playerListFragment.newInstance();
-            addFragmentToActivity(getSupportFragmentManager(),
+            Utils.INSTANCE.addFragmentToActivity(getSupportFragmentManager(),
                     playerListFragment, R.id.player_list_activity_container);
         }
         presenter = new PlayerListPresenter(playerListFragment, this);
 
-    }
-
-    public static void addFragmentToActivity(FragmentManager fragmentManager,
-                                             Fragment fragment, int frameId) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(frameId, fragment);
-        transaction.commit();
     }
 
     private void initDrawer() {
@@ -162,8 +156,6 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
 
-
-        //recyclerView.setItemChecked(0, true);
         titleSection = getString(R.string.position_goalkeeper);
         mTitleApp = getTitle();
 
