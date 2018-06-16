@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -18,12 +19,8 @@ import com.lumbralessoftware.voterussia2018.ElementList;
 import com.lumbralessoftware.voterussia2018.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,22 +62,21 @@ import static com.lumbralessoftware.voterussia2018.Constants.URUGUAY;
  * Created by javiergonzalezcabezas on 21/5/18.
  */
 
-public class PlayerListActivity extends AppCompatActivity implements PlayerListMenuAdapter.MyClickListener{
+public class PlayerListActivity extends AppCompatActivity implements PlayerListMenuAdapter.MyClickListener {
 
-    private String[] mOptionMenu;
     @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
+    DrawerLayout drawerLayout;
     @BindView(R.id.left_drawer)
-    RelativeLayout mDrawerRelativeLayout;
+    RelativeLayout drawerRelativeLayout;
     @BindView(R.id.list_view_drawer)
     RecyclerView recyclerView;
+
+    private String[] optionMenu;
     private ActionBarDrawerToggle mDrawerToggle;
     private PlayerListPresenter presenter;
-    private CharSequence mTitleSection;
+    private CharSequence titleSection;
     private CharSequence mTitleApp;
-    HashMap<String, Integer> mMapIndex;
-    String[] sections;
-    List<String> filters;
+    HashMap<Integer, String> mMapIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,13 +113,7 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        PlayerListMenuAdapter adapter = new PlayerListMenuAdapter(this, getDataSet(), sections, mMapIndex);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(this);
-
-
-        mOptionMenu = new String[]{getString(R.string.position_goalkeeper),
+        optionMenu = new String[]{getString(R.string.position_goalkeeper),
                 getString(R.string.position_defender),
                 getString(R.string.position_midfield),
                 getString(R.string.position_forward),
@@ -168,19 +158,20 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
                 getString(R.string.country_colombia),
                 getString(R.string.country_japan)};
 
+        PlayerListMenuAdapter adapter = new PlayerListMenuAdapter(this, getDataSet());
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
+
 
         //recyclerView.setItemChecked(0, true);
-        mTitleSection = getString(R.string.position_goalkeeper);
+        titleSection = getString(R.string.position_goalkeeper);
         mTitleApp = getTitle();
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open,
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open,
                 R.string.drawer_close) {
-            //this, mDrawerLayout,
-            //R.drawable.ic_drawer, R.string.drawer_open,
-            //R.string.drawer_close) {
 
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitleSection);
+                getSupportActionBar().setTitle(titleSection);
                 ActivityCompat.invalidateOptionsMenu(PlayerListActivity.this);
             }
 
@@ -190,7 +181,7 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
             }
         };
 
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        drawerLayout.addDrawerListener(mDrawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -211,40 +202,42 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
 
     private ArrayList<ElementList> getDataSet() {
 
-
-        List<String> fruitList = Arrays.asList(mOptionMenu);
-        getListIndexed(fruitList);
+        getListIndexed();
 
         ArrayList results = new ArrayList<>();
         ElementList obj;
-        int section = 0;
-        int normal = 0;
-        String fruit;
-        String ch;
-        int total = fruitList.size() + sections.length;
+        int section = 0, normal = 0;
+        int total = optionMenu.length + mMapIndex.size();
 
         for (int index = 0; index < total; index++) {
-
-            fruit = fruitList.get(normal);
-            ch = fruit.substring(0, 1);
-
-            if (index == 0 || ch.equals(sections[section])) {
-                if (index != 0) {
-                    obj = new ElementList(fruitList.get(normal - 1), false, true);
-                    results.add(index - 1, obj);
-                }
-                obj = new ElementList(ch, true, false);
-                mMapIndex.put(ch, index);
-                if (section < sections.length - 1) {
-                    section++;
-                } else {
-                    section = 0;
-                }
-            } else {
-
-                obj = new ElementList(fruitList.get(normal), false, false);
-
-                normal++;
+            switch (index) {
+                case 0:
+                case 5:
+                case 10:
+                case 15:
+                case 20:
+                case 25:
+                case 30:
+                case 35:
+                case 40:
+                    obj = new ElementList(mMapIndex.get(section).toString(), true, false);
+                    section ++;
+                    break;
+                case 4:
+                case 9:
+                case 14:
+                case 19:
+                case 24:
+                case 29:
+                case 34:
+                case 39:
+                    obj = new ElementList(optionMenu[normal], false, true);
+                    normal++;
+                    break;
+                default:
+                    obj = new ElementList(optionMenu[normal], false, false);
+                    normal++;
+                    break;
             }
 
             results.add(index, obj);
@@ -252,177 +245,178 @@ public class PlayerListActivity extends AppCompatActivity implements PlayerListM
         return results;
     }
 
-    public void getListIndexed(List<String> fruitList) {
+    public void getListIndexed() {
 
-        this.filters = fruitList;
         mMapIndex = new LinkedHashMap<>();
-
-        for (int x = 0; x < filters.size(); x++) {
-            switch (x){
-                case 3:
-                    mMapIndex.put(getString(R.string.position), x);
-                    break;
-                case 7:
-                    mMapIndex.put(getString(R.string.group_a), x);
-                    break;
-                case 11:
-                    mMapIndex.put(getString(R.string.group_b), x);
-                    break;
-                case 15:
-                    mMapIndex.put(getString(R.string.group_c), x);
-                    break;
-                case 19:
-                    mMapIndex.put(getString(R.string.group_d), x);
-                    break;
-                case 23:
-                    mMapIndex.put(getString(R.string.group_e), x);
-                    break;
-                case 27:
-                    mMapIndex.put(getString(R.string.group_f), x);
-                    break;
-                case 31:
-                    mMapIndex.put(getString(R.string.group_g), x);
-                    break;
-                case 35:
-                    mMapIndex.put(getString(R.string.group_h), x);
-                    break;
-            }
-
-        }
-
-        Set<String> sectionLetters = mMapIndex.keySet();
-
-        // create a list from the set to sort
-        ArrayList<String> sectionList = new ArrayList<>(sectionLetters);
-
-        Collections.sort(sectionList);
-
-        sections = new String[sectionList.size()];
-
-        sectionList.toArray(sections);
+        mMapIndex.put(0, getString(R.string.position));
+        mMapIndex.put(1, getString(R.string.group_a));
+        mMapIndex.put(2, getString(R.string.group_b));
+        mMapIndex.put(3, getString(R.string.group_c));
+        mMapIndex.put(4, getString(R.string.group_d));
+        mMapIndex.put(5, getString(R.string.group_e));
+        mMapIndex.put(6, getString(R.string.group_f));
+        mMapIndex.put(7, getString(R.string.group_g));
+        mMapIndex.put(8, getString(R.string.group_h));
     }
 
 
     @Override
     public void onItemClick(int position, boolean addItem) {
         switch (position) {
-            case 0:
-                presenter.fetchPlayerWithPosition(0);
-                break;
             case 1:
-                presenter.fetchPlayerWithPosition(1);
+                presenter.fetchPlayerWithPosition(0);
+                titleSection = optionMenu[0];
                 break;
             case 2:
-                presenter.fetchPlayerWithPosition(2);
+                presenter.fetchPlayerWithPosition(1);
+                titleSection = optionMenu[1];
                 break;
             case 3:
+                presenter.fetchPlayerWithPosition(2);
+                titleSection = optionMenu[2];
+                break;
+            case 4:
                 presenter.fetchPlayerWithPosition(3);
+                titleSection = optionMenu[3];
                 break;
             //A
-            case 4:
-                presenter.fetchPlayerWithTeam(RUSSIA);
-                break;
-            case 5:
-                presenter.fetchPlayerWithTeam(SAUDI_ARABIA);
-                break;
             case 6:
-                presenter.fetchPlayerWithTeam(EGYPT);
+                presenter.fetchPlayerWithTeam(RUSSIA);
+                titleSection = optionMenu[4];
                 break;
             case 7:
-                presenter.fetchPlayerWithTeam(URUGUAY);
+                presenter.fetchPlayerWithTeam(SAUDI_ARABIA);
+                titleSection = optionMenu[5];
                 break;
-            //B
             case 8:
-                presenter.fetchPlayerWithTeam(PORTUGAL);
+                presenter.fetchPlayerWithTeam(EGYPT);
+                titleSection = optionMenu[6];
                 break;
             case 9:
-                presenter.fetchPlayerWithTeam(SPAIN);
+                presenter.fetchPlayerWithTeam(URUGUAY);
+                titleSection = optionMenu[7];
                 break;
-            case 10:
-                presenter.fetchPlayerWithTeam(MOROCCO);
-                break;
+            //B
             case 11:
-                presenter.fetchPlayerWithTeam(IRAN);
+                presenter.fetchPlayerWithTeam(PORTUGAL);
+                titleSection = optionMenu[8];
                 break;
-            //C
             case 12:
-                presenter.fetchPlayerWithTeam(FRANCE);
+                presenter.fetchPlayerWithTeam(SPAIN);
+                titleSection = optionMenu[9];
                 break;
             case 13:
-                presenter.fetchPlayerWithTeam(AUSTRALIA);
+                presenter.fetchPlayerWithTeam(MOROCCO);
+                titleSection = optionMenu[10];
                 break;
             case 14:
-                presenter.fetchPlayerWithTeam(PERU);
+                presenter.fetchPlayerWithTeam(IRAN);
+                titleSection = optionMenu[11];
                 break;
-            case 15:
-                presenter.fetchPlayerWithTeam(DENAMARK);
-                break;
-            //D
+            //C
             case 16:
-                presenter.fetchPlayerWithTeam(ARGENTINA);
+                presenter.fetchPlayerWithTeam(FRANCE);
+                titleSection = optionMenu[12];
                 break;
             case 17:
-                presenter.fetchPlayerWithTeam(ICELAND);
+                presenter.fetchPlayerWithTeam(AUSTRALIA);
+                titleSection = optionMenu[13];
                 break;
             case 18:
-                presenter.fetchPlayerWithTeam(CROATIA);
+                presenter.fetchPlayerWithTeam(PERU);
+                titleSection = optionMenu[14];
                 break;
             case 19:
-                presenter.fetchPlayerWithTeam(NIGERIA);
+                presenter.fetchPlayerWithTeam(DENAMARK);
+                titleSection = optionMenu[15];
                 break;
-            //E
-            case 20:
-                presenter.fetchPlayerWithTeam(BRAZIL);
-                break;
+            //D
             case 21:
-                presenter.fetchPlayerWithTeam(SWITZERLAND);
+                presenter.fetchPlayerWithTeam(ARGENTINA);
+                titleSection = optionMenu[16];
                 break;
             case 22:
-                presenter.fetchPlayerWithTeam(COSTA_RICA);
+                presenter.fetchPlayerWithTeam(ICELAND);
+                titleSection = optionMenu[17];
                 break;
             case 23:
+                presenter.fetchPlayerWithTeam(CROATIA);
+                titleSection = optionMenu[18];
+                break;
+            case 24:
+                presenter.fetchPlayerWithTeam(NIGERIA);
+                titleSection = optionMenu[19];
+                break;
+            //E
+            case 26:
+                presenter.fetchPlayerWithTeam(BRAZIL);
+                titleSection = optionMenu[20];
+                break;
+            case 27:
+                presenter.fetchPlayerWithTeam(SWITZERLAND);
+                titleSection = optionMenu[21];
+                break;
+            case 28:
+                presenter.fetchPlayerWithTeam(COSTA_RICA);
+                titleSection = optionMenu[22];
+                break;
+            case 29:
                 presenter.fetchPlayerWithTeam(SERBIA);
+                titleSection = optionMenu[23];
                 break;
 
             //F
-            case 24:
-                presenter.fetchPlayerWithTeam(GERMANY);
-                break;
-            case 25:
-                presenter.fetchPlayerWithTeam(MEXICO);
-                break;
-            case 26:
-                presenter.fetchPlayerWithTeam(SWEDEN);
-                break;
-            case 27:
-                presenter.fetchPlayerWithTeam(SOUTH_KOREA);
-                break;
-            //G
-            case 28:
-                presenter.fetchPlayerWithTeam(BELGIUM);
-                break;
-            case 29:
-                presenter.fetchPlayerWithTeam(PANAMA);
-                break;
-            case 30:
-                presenter.fetchPlayerWithTeam(TUNISIA);
-                break;
             case 31:
-                presenter.fetchPlayerWithTeam(ENGLAND);
+                presenter.fetchPlayerWithTeam(GERMANY);
+                titleSection = optionMenu[24];
                 break;
-            //H
             case 32:
-                presenter.fetchPlayerWithTeam(POLAND);
+                presenter.fetchPlayerWithTeam(MEXICO);
+                titleSection = optionMenu[25];
                 break;
             case 33:
-                presenter.fetchPlayerWithTeam(SENEGAL);
+                presenter.fetchPlayerWithTeam(SWEDEN);
+                titleSection = optionMenu[26];
                 break;
             case 34:
-                presenter.fetchPlayerWithTeam(COLOMBIA);
+                presenter.fetchPlayerWithTeam(SOUTH_KOREA);
+                titleSection = optionMenu[27];
                 break;
-            case 35:
+            //G
+            case 36:
+                presenter.fetchPlayerWithTeam(BELGIUM);
+                titleSection = optionMenu[28];
+                break;
+            case 37:
+                presenter.fetchPlayerWithTeam(PANAMA);
+                titleSection = optionMenu[29];
+                break;
+            case 38:
+                presenter.fetchPlayerWithTeam(TUNISIA);
+                titleSection = optionMenu[30];
+                break;
+            case 39:
+                presenter.fetchPlayerWithTeam(ENGLAND);
+                titleSection = optionMenu[31];
+                break;
+            //H
+            case 41:
+                presenter.fetchPlayerWithTeam(POLAND);
+                titleSection = optionMenu[32];
+                break;
+            case 42:
+                presenter.fetchPlayerWithTeam(SENEGAL);
+                titleSection = optionMenu[33];
+                break;
+            case 43:
+                presenter.fetchPlayerWithTeam(COLOMBIA);
+                titleSection = optionMenu[34];
+                break;
+            case 44:
                 presenter.fetchPlayerWithTeam(JAPAN);
+                titleSection = optionMenu[35];
                 break;
         }
+        drawerLayout.closeDrawer(Gravity.LEFT);
     }
 }

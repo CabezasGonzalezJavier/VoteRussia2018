@@ -93,11 +93,17 @@ class Vote {
 }
 
 
-class ElementList(name: String, section: Boolean, nextSection: Boolean) {
+class ElementList {
 
     private var name:String? = null
     private var section: Boolean? = null
     private var nextSection: Boolean? = null
+
+    constructor(name: String, section: Boolean, nextSection: Boolean) {
+        this.name = name
+        this.section = section
+        this.nextSection = nextSection
+    }
 
     fun isSection(): Boolean? {
         return section
