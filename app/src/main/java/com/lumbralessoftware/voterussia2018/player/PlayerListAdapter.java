@@ -100,6 +100,13 @@ public class PlayerListAdapter extends RecyclerView
         @BindView(R.id.player_list_item_position_imageView)
         ImageView positon;
 
+        @BindView(R.id.player_list_item_goal_imageView)
+        ImageView goalFavorImage;
+
+        @BindView(R.id.player_list_item_goal_textView)
+        TextView goalsFavor;
+
+
         @BindView(R.id.player_list_item_rate_textView)
         Button rate;
 
@@ -140,6 +147,10 @@ public class PlayerListAdapter extends RecyclerView
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.profileImageView);
         setFlag(list.get(position).getTeam(), holder.flag);
+        if (list.get(position).getGoalsFavor()>0) {
+            holder.goalFavorImage.setImageResource(R.drawable.goal);
+            holder.goalsFavor.setText(String.valueOf(list.get(position).getGoalsFavor()));
+        }
     }
 
     @Override

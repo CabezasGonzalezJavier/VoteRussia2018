@@ -17,6 +17,8 @@ class Constants {
         const val FIREBASE_VOTE = "vote"
         const val FIREBASE_POSITION = "position"
         const val FIREBASE_TEAM = "team"
+        const val FIREBASE_GOALS_AGAINST = "goalsAgainst"
+        const val FIREBASE_GOALS = "goalsFavor"
 
         const val IMAGE = "image"
         const val PLAYERS = "players"

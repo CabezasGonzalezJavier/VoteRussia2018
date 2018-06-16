@@ -5,6 +5,8 @@ package com.lumbralessoftware.voterussia2018
  */
 class Player {
     private var club: String? = null
+    private var goalsAgainst: Int? = null
+    private var goalsFavor: Int? = null
     private var id: Int? = null
     private var imageURL: String? = null
     private var name: String? = null
@@ -12,6 +14,21 @@ class Player {
     private var position: Int? = null
     private var team: Int? = null
     private var vote: Float? = null
+
+    fun getGoalsAgainst(): Int? {
+        return goalsAgainst
+    }
+
+    fun setGoalsAgainst(goalsAgainst: Int) {
+        this.goalsAgainst = goalsAgainst
+    }
+    fun getGoalsFavor(): Int? {
+        return goalsFavor
+    }
+
+    fun setGoalsFavor(goalsFavor: Int) {
+        this.goalsFavor = goalsFavor
+    }
 
     fun getClub(): String? {
         return club
