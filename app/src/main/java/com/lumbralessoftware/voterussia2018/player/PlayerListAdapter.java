@@ -150,6 +150,9 @@ public class PlayerListAdapter extends RecyclerView
         if (list.get(position).getGoalsFavor()>0) {
             holder.goalFavorImage.setImageResource(R.drawable.goal);
             holder.goalsFavor.setText(String.valueOf(list.get(position).getGoalsFavor()));
+        } else {
+            holder.goalFavorImage.setImageResource(R.drawable.circle_white_background);
+            holder.goalsFavor.setText("");
         }
     }
 
