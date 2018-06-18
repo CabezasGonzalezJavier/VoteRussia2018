@@ -106,6 +106,12 @@ public class PlayerListAdapter extends RecyclerView
         @BindView(R.id.player_list_item_goal_textView)
         TextView goalsFavor;
 
+        @BindView(R.id.player_list_item_goal_against_imageView)
+        ImageView goalAgainstImage;
+
+        @BindView(R.id.player_list_item_goal_against_textView)
+        TextView goalsAgainst;
+
 
         @BindView(R.id.player_list_item_rate_textView)
         Button rate;
@@ -153,6 +159,14 @@ public class PlayerListAdapter extends RecyclerView
         } else {
             holder.goalFavorImage.setImageResource(R.drawable.circle_white_background);
             holder.goalsFavor.setText("");
+        }
+
+        if(list.get(position).getGoalsAgainst()>0) {
+            holder.goalAgainstImage.setImageResource(R.drawable.goal_agaist);
+            holder.goalsAgainst.setText(String.valueOf(list.get(position).getGoalsAgainst()));
+        } else {
+            holder.goalAgainstImage.setImageResource(R.drawable.circle_white_background);
+            holder.goalsAgainst.setText("");
         }
     }
 
