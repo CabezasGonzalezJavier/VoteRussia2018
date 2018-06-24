@@ -1,7 +1,7 @@
 package com.lumbralessoftware.voterussia2018.player
 
 import com.lumbralessoftware.voterussia2018.BaseView
-import com.lumbralessoftware.voterussia2018.Player
+import com.lumbralessoftware.voterussia2018.NewPlayer
 
 /**
  * Created by javiergonzalezcabezas on 31/5/18.
@@ -19,7 +19,7 @@ interface PlayerListContract {
     }
 
     interface View : BaseView<Presenter> {
-        fun showPlayer(list: List<Player>)
+        fun showPlayer(list: List<NewPlayer>)
 
         fun showError()
 

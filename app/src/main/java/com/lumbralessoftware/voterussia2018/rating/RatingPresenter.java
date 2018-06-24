@@ -1,7 +1,6 @@
 package com.lumbralessoftware.voterussia2018.rating;
 
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

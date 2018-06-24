@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.lumbralessoftware.voterussia2018.Player;
+import com.lumbralessoftware.voterussia2018.NewPlayer;
 import com.lumbralessoftware.voterussia2018.R;
 
 import java.util.List;
@@ -27,6 +27,7 @@ import static com.lumbralessoftware.voterussia2018.Constants.BRAZIL;
 import static com.lumbralessoftware.voterussia2018.Constants.COLOMBIA;
 import static com.lumbralessoftware.voterussia2018.Constants.COSTA_RICA;
 import static com.lumbralessoftware.voterussia2018.Constants.CROATIA;
+import static com.lumbralessoftware.voterussia2018.Constants.DEFAULT_IMAGE;
 import static com.lumbralessoftware.voterussia2018.Constants.DEFENDER;
 import static com.lumbralessoftware.voterussia2018.Constants.DENAMARK;
 import static com.lumbralessoftware.voterussia2018.Constants.EGYPT;
@@ -64,7 +65,7 @@ import static com.lumbralessoftware.voterussia2018.Constants.URUGUAY;
 public class PlayerListAdapter extends RecyclerView
         .Adapter<PlayerListAdapter.DataObjectHolder> {
 
-    private List<Player> list;
+    private List<NewPlayer> list;
     private Context context;
     private static PlayerListAdapter.ListenerPlayer listenerPlayer;
 
@@ -72,7 +73,7 @@ public class PlayerListAdapter extends RecyclerView
         void rating(int id);
     }
 
-    public PlayerListAdapter(PlayerListAdapter.ListenerPlayer listener, List<Player> list, Context context) {
+    public PlayerListAdapter(PlayerListAdapter.ListenerPlayer listener, List<NewPlayer> list, Context context) {
         this.listenerPlayer = listener;
         this.list = list;
         this.context = context;
@@ -148,12 +149,19 @@ public class PlayerListAdapter extends RecyclerView
         holder.number.setText(list.get(position).getNumber());
         holder.rate.setText(String.valueOf(list.get(position).getVote()));
         setImagePosition(list.get(position).getPosition(), holder.positon);
-        Glide.with(context)
-                .load(list.get(position).getImageURL())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.profileImageView);
+        if (list.get(position).getImageURL().equals("")) {
+            Glide.with(context)
+                    .load(DEFAULT_IMAGE)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(holder.profileImageView);
+        } else {
+            Glide.with(context)
+                    .load(list.get(position).getImageURL())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(holder.profileImageView);
+        }
         setFlag(list.get(position).getTeam(), holder.flag);
-        if (list.get(position).getGoalsFavor()>0) {
+        if (Integer.valueOf(list.get(position).getGoalsFavor()) > 0) {
             holder.goalFavorImage.setImageResource(R.drawable.goal);
             holder.goalsFavor.setText(String.valueOf(list.get(position).getGoalsFavor()));
         } else {
@@ -161,13 +169,13 @@ public class PlayerListAdapter extends RecyclerView
             holder.goalsFavor.setText("");
         }
 
-        if(list.get(position).getGoalsAgainst()>0) {
-            holder.goalAgainstImage.setImageResource(R.drawable.goal_agaist);
-            holder.goalsAgainst.setText(String.valueOf(list.get(position).getGoalsAgainst()));
-        } else {
-            holder.goalAgainstImage.setImageResource(R.drawable.circle_white_background);
-            holder.goalsAgainst.setText("");
-        }
+        //if(list.get(position).getGoalsAgainst()>0) {
+        //  holder.goalAgainstImage.setImageResource(R.drawable.goal_agaist);
+        //holder.goalsAgainst.setText(String.valueOf(list.get(position).getGoalsAgainst()));
+        //} else {
+        //  holder.goalAgainstImage.setImageResource(R.drawable.circle_white_background);
+        //holder.goalsAgainst.setText("");
+        //}
     }
 
     @Override

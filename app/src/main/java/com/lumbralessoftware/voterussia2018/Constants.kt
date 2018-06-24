@@ -21,10 +21,11 @@ class Constants {
         const val FIREBASE_GOALS = "goalsFavor"
 
         const val IMAGE = "image"
-        const val PLAYERS = "players"
+        const val PLAYERS = "newPlayer"
         const val VOTE = "vote"
         const val NAME = "name"
         const val ID_PLAYER = "id"
+        const val DEFAULT_IMAGE = "https://firebasestorage.googleapis.com/v0/b/voterussia2018.appspot.com/o/default_icon.jpg?alt=media&token=9ba303b5-2f8d-4e8a-aa3f-fc7da70c7b73"
 
         const val GOALKEEPER = 0
         const val DEFENDER = 1

@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.lumbralessoftware.voterussia2018.Player;
+import com.lumbralessoftware.voterussia2018.NewPlayer;
 import com.lumbralessoftware.voterussia2018.Utils;
 import com.lumbralessoftware.voterussia2018.rating.RatingDialogFragment;
 import com.lumbralessoftware.voterussia2018.rating.RatingPresenter;
@@ -47,9 +47,9 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
             player.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    List<Player> list = new ArrayList<>();
+                    List<NewPlayer> list = new ArrayList<>();
                     for (DataSnapshot children : dataSnapshot.getChildren()) {
-                        Player player = children.getValue(Player.class);
+                        NewPlayer player = children.getValue(NewPlayer.class);
                         list.add(player);
                     }
                     view.showPlayer(list);
@@ -81,9 +81,9 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
             player.orderByChild(FIREBASE_POSITION).equalTo(position).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    List<Player> list = new ArrayList<>();
+                    List<NewPlayer> list = new ArrayList<>();
                     for (DataSnapshot children : dataSnapshot.getChildren()) {
-                        Player player = children.getValue(Player.class);
+                        NewPlayer player = children.getValue(NewPlayer.class);
                         list.add(player);
                     }
                     view.showPlayer(list);
@@ -105,9 +105,9 @@ public class PlayerListPresenter implements PlayerListContract.Presenter {
             player.orderByChild(FIREBASE_TEAM).equalTo(team).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    List<Player> list = new ArrayList<>();
+                    List<NewPlayer> list = new ArrayList<>();
                     for (DataSnapshot children : dataSnapshot.getChildren()) {
-                        Player player = children.getValue(Player.class);
+                        NewPlayer player = children.getValue(NewPlayer.class);
                         list.add(player);
                     }
                     view.showPlayer(list);

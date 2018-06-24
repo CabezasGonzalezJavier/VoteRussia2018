@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lumbralessoftware.voterussia2018.Player;
+import com.lumbralessoftware.voterussia2018.NewPlayer;
 import com.lumbralessoftware.voterussia2018.R;
-import com.lumbralessoftware.voterussia2018.rating.RatingDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +31,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
     @BindView(R.id.player_list_fragment_recyclerView)
     RecyclerView recyclerView;
 
-    private List<Player> list;
+    private List<NewPlayer> list;
 
     public static PlayerListFragment newInstance() {
         return new PlayerListFragment();
@@ -71,7 +70,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
     }
 
     @Override
-    public void showPlayer(@NotNull List<Player> list) {
+    public void showPlayer(@NotNull List<NewPlayer> list) {
         this.list = list;
         recyclerView.setHasFixedSize(true);
 

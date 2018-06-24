@@ -2,7 +2,6 @@ package com.lumbralessoftware.voterussia2018.rating;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.lumbralessoftware.voterussia2018.Constants.DEFAULT_IMAGE;
 import static com.lumbralessoftware.voterussia2018.Constants.ID_PLAYER;
 import static com.lumbralessoftware.voterussia2018.Constants.IMAGE;
 import static com.lumbralessoftware.voterussia2018.Constants.NAME;
@@ -81,10 +81,17 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
 
     @Override
     public void setTitle() {
-        Glide.with(getContext())
-                .load(imagePlayer)
-                .apply(RequestOptions.circleCropTransform())
-                .into(imageView);
+        if (imagePlayer.equals("")) {
+            Glide.with(getContext())
+                    .load(DEFAULT_IMAGE)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageView);
+        } else {
+            Glide.with(getContext())
+                    .load(imagePlayer)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageView);
+        }
         namePlayer = getArguments().getString(NAME, "Enter Name");
         nameTextView.setText(namePlayer);
     }
