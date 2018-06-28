@@ -23,4 +23,9 @@ object Utils {
         transaction.add(frameId, fragment)
         transaction.commit()
     }
+
+    fun dip2px(context: Context, dp: Float): Int {
+        val scale = context.resources.displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
+    }
 }

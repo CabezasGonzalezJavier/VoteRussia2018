@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.lumbralessoftware.voterussia2018.CropTransformation;
 import com.lumbralessoftware.voterussia2018.NewPlayer;
 import com.lumbralessoftware.voterussia2018.R;
+import com.lumbralessoftware.voterussia2018.Utils;
 
 import java.util.List;
 
@@ -155,9 +157,12 @@ public class PlayerListAdapter extends RecyclerView
                     .apply(RequestOptions.circleCropTransform())
                     .into(holder.profileImageView);
         } else {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.transform(new CropTransformation(Utils.INSTANCE.dip2px(context, 350), Utils.INSTANCE.dip2px(context, 400),
+                    CropTransformation.CropType.TOP));
             Glide.with(context)
                     .load(list.get(position).getImageURL())
-                    .apply(RequestOptions.circleCropTransform())
+                    .apply(requestOptions)
                     .into(holder.profileImageView);
         }
         setFlag(list.get(position).getTeam(), holder.flag);

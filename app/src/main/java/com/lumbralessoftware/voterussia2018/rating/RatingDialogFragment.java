@@ -3,6 +3,7 @@ package com.lumbralessoftware.voterussia2018.rating;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.lumbralessoftware.voterussia2018.CropTransformation;
 import com.lumbralessoftware.voterussia2018.R;
+import com.lumbralessoftware.voterussia2018.RoundedCornersTransformation;
 import com.lumbralessoftware.voterussia2018.Utils;
 
 import butterknife.BindView;
@@ -87,9 +91,12 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageView);
         } else {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.transform(new CropTransformation(Utils.INSTANCE.dip2px(getActivity(), 400), Utils.INSTANCE.dip2px(getActivity(), 200),
+                    CropTransformation.CropType.TOP));
             Glide.with(getContext())
                     .load(imagePlayer)
-                    .apply(RequestOptions.circleCropTransform())
+                    .apply(requestOptions)
                     .into(imageView);
         }
         namePlayer = getArguments().getString(NAME, "Enter Name");
