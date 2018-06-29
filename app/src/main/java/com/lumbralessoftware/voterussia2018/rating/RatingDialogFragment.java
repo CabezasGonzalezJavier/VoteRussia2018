@@ -155,4 +155,5 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
     public void votedMessage() {
         Toast.makeText(getActivity(), getString(R.string.rating_voted), Toast.LENGTH_SHORT).show();
     }
+
 }
