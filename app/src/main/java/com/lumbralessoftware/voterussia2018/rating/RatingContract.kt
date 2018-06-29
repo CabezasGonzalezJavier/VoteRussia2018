@@ -33,5 +33,9 @@ interface RatingContract {
 
         fun noInternet()
 
+        fun successfulVote()
+
+        fun votedMessage()
+
     }
 }

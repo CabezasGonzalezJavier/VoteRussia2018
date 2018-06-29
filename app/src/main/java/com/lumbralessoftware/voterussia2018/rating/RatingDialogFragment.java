@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -143,5 +144,15 @@ public class RatingDialogFragment extends DialogFragment implements RatingContra
 
         ratingTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorForward));
         ratingTextView.setText(getString(R.string.no_internet));
+    }
+
+    @Override
+    public void successfulVote() {
+        Toast.makeText(getActivity(), getString(R.string.rating_thank_you), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void votedMessage() {
+        Toast.makeText(getActivity(), getString(R.string.rating_voted), Toast.LENGTH_SHORT).show();
     }
 }

@@ -82,7 +82,7 @@ public class PlayerListFragment extends Fragment implements PlayerListContract.V
 
     @Override
     public void rating(int id) {
-        presenter.goToRating(id, list.get(id).getName(), list.get(id).getImageURL());
+        presenter.goToRating(list.get(id).getId(), list.get(id).getName(), list.get(id).getImageURL());
     }
 
     @Override

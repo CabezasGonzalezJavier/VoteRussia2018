@@ -16,6 +16,8 @@ import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_ID;
 import static com.lumbralessoftware.voterussia2018.Constants.FIREBASE_VOTE;
 import static com.lumbralessoftware.voterussia2018.Constants.PLAYERS;
 import static com.lumbralessoftware.voterussia2018.Constants.VOTE;
+import static com.lumbralessoftware.voterussia2018.SharedPreferences.isVote;
+import static com.lumbralessoftware.voterussia2018.SharedPreferences.setVote;
 
 /**
  * Created by javiergonzalezcabezas on 9/6/18.
@@ -61,37 +63,42 @@ public class RatingPresenter implements RatingContract.Presenter {
                     view.showError();
                 }
             });
-        } else  {
+        } else {
             view.noInternet();
         }
     }
 
     @Override
     public void addValueVote(int vote) {
-        switch (vote) {
-            case 1:
-                voteData.setOne(voteData.getOne() + 1);
-                voteData.setSum(voteData.getSum() + 1);
-                break;
-            case 2:
-                voteData.setTwo(voteData.getTwo() + 1);
-                voteData.setSum(voteData.getSum() + 2);
-                break;
-            case 3:
-                voteData.setThree(voteData.getThree() + 1);
-                voteData.setSum(voteData.getSum() + 3);
-                break;
-            case 4:
-                voteData.setFour(voteData.getFour() + 1);
-                voteData.setSum(voteData.getSum() + 4);
-                break;
-            case 5:
-                voteData.setFive(voteData.getFive() + 1);
-                voteData.setSum(voteData.getSum() + 5);
-                break;
+        if (isVote(activity, String.valueOf(idPlayer))) {
+            view.votedMessage();
+            view.dismissDialog();
+        } else {
+            switch (vote) {
+                case 1:
+                    voteData.setOne(voteData.getOne() + 1);
+                    voteData.setSum(voteData.getSum() + 1);
+                    break;
+                case 2:
+                    voteData.setTwo(voteData.getTwo() + 1);
+                    voteData.setSum(voteData.getSum() + 2);
+                    break;
+                case 3:
+                    voteData.setThree(voteData.getThree() + 1);
+                    voteData.setSum(voteData.getSum() + 3);
+                    break;
+                case 4:
+                    voteData.setFour(voteData.getFour() + 1);
+                    voteData.setSum(voteData.getSum() + 4);
+                    break;
+                case 5:
+                    voteData.setFive(voteData.getFive() + 1);
+                    voteData.setSum(voteData.getSum() + 5);
+                    break;
+            }
+            voteData.setTotal(voteData.getTotal() + 1);
+            updateVote();
         }
-        voteData.setTotal(voteData.getTotal() + 1);
-        updateVote();
     }
 
     @Override
@@ -117,6 +124,8 @@ public class RatingPresenter implements RatingContract.Presenter {
         DatabaseReference voteReference = playerReference.child(FIREBASE_VOTE);
         voteReference.setValue(Double.valueOf(df.format(vote)));
 
+        setVote(activity, String.valueOf(idPlayer), true);
+        view.successfulVote();
         view.dismissDialog();
     }
 }

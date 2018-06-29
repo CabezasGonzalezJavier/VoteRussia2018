@@ -124,7 +124,7 @@ public class PlayerListAdapter extends RecyclerView
 
             ButterKnife.bind(this, itemView);
 
-            rate.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

@@ -8,6 +8,8 @@
     <string name="rating_dialog_player_please">Rating the player, please!</string>
     <string name="rating_dialog_empty">Your rating will appear here</string>
     <string name="rating_dialog_rating">Your rating is:&#160;</string>
+    <string name="rating_thank_you">Thank you for your vote</string>
+    <string name="rating_voted">You voted this player</string>
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
